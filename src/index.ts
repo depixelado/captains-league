@@ -15,7 +15,7 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    logsByCaptain: (name: string) => {}
+    logsByCaptain: (): void => {} // eslint-disable-line @typescript-eslint/no-empty-function
   }
 };
 
