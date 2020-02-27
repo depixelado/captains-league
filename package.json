@@ -1,0 +1,30 @@
+{
+  "name": "captains-league",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsc --w",
+    "start": "nodemon ./dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/depixelado/captains-league.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/depixelado/captains-league/issues"
+  },
+  "homepage": "https://github.com/depixelado/captains-league#readme",
+  "dependencies": {
+    "apollo-server": "^2.10.1",
+    "graphql": "^14.6.0",
+    "nodemon": "^2.0.2"
+  },
+  "devDependencies": {
+    "typescript": "^3.8.2"
+  }
+}
