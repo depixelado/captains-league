@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsc --w",
-    "start": "nodemon ./dist/index.js",
+    "start": "nodemon -r dotenv/config ./dist/index.js",
     "lint": "eslint src/**/*",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -23,11 +23,14 @@
   "dependencies": {
     "apollo-server": "^2.10.1",
     "graphql": "^14.6.0",
+    "mongoose": "^5.9.2",
     "nodemon": "^2.0.2"
   },
   "devDependencies": {
+    "@types/mongoose": "^5.7.3",
     "@typescript-eslint/eslint-plugin": "^2.21.0",
     "@typescript-eslint/parser": "^2.21.0",
+    "dotenv": "^8.2.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-prettier": "^3.1.2",
