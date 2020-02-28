@@ -21,10 +21,12 @@
   },
   "homepage": "https://github.com/depixelado/captains-league#readme",
   "dependencies": {
+    "@typegoose/typegoose": "^6.4.0",
     "apollo-server": "^2.10.1",
     "graphql": "^14.6.0",
     "mongoose": "^5.9.2",
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
     "@types/mongoose": "^5.7.3",

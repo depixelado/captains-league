@@ -7,7 +7,9 @@
     "sourceMap": true,
     "outDir": "dist",
     "target": "ES6",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]

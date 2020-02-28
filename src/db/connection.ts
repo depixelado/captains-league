@@ -11,7 +11,7 @@ const connectDb = async (): Promise<any> => {
       if (err) {
         return Promise.reject(err);
       } else {
-        console.log("Successfully Connected!");
+        console.log("DB Successfully Connected!");
         return Promise.resolve();
       }
     }
