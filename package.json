@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "tsc --w",
     "start": "nodemon -r dotenv/config ./dist/index.js",
-    "lint": "eslint src/**/*",
+    "lint": "eslint src/**/* scripts/**/* seeds/**/*",
+    "seeder:seed": "ts-node -r dotenv/config ./scripts/seeder.ts",
+    "seeder:drop": "ts-node -r dotenv/config ./scripts/dropCollections.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -38,7 +40,9 @@
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-prettier": "^3.1.2",
+    "faker": "^4.1.0",
     "prettier": "^1.19.1",
+    "ts-node": "^8.6.2",
     "typescript": "^3.8.2"
   }
 }
