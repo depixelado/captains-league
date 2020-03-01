@@ -3,8 +3,13 @@ import typeDefs from "./schema";
 import resolvers from "./resolvers";
 import connectDb from "./db/connection";
 import logger from "./logger";
+import injector from "./services/serviceInjector";
 
-const server = new ApolloServer({ typeDefs, resolvers, mocks: true });
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: { logger, injector }
+});
 
 connectDb()
   .then(() => server.listen())

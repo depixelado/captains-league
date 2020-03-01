@@ -2,7 +2,7 @@ import LogModel, { Log } from "../src/models/Log";
 import faker from "faker";
 
 const NUM_CAPTAINS = 10;
-const MIN_LOGS_PER_CAPTAIN = 1;
+const MIN_LOGS_PER_CAPTAIN = 2;
 const MAX_LOGS_PER_CAPTAIN = 20;
 
 const getRandomNumber = (min: number, max: number): number =>
