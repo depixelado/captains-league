@@ -1,0 +1,110 @@
+{
+  "info": {
+    "_postman_id": "4c99c64a-65c2-4519-926e-109a58471113",
+    "name": "Captain League",
+    "description": "Captain League application. Shell test",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get Places and vessels DESC",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "{\n  places: getLogs(sort: DESC) {\n    captainName\n    vesselName\n    port\n  }\n}",
+            "variables": ""
+          },
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Places and vessels by Captain DESC",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "type": "text",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "{\n  places: getLogsByCaptain(name: \"Captain naame\"){\n    vesselName\n    arrivalDate\n  }\n}",
+            "variables": ""
+          },
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add Log",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "type": "text",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "mutation addLog($input: LogInput!){\n  places: createLog(log: $input){\n    captainName\n    vesselName\n    port\n    arrivalDate\n  }\n}",
+            "variables": "{\n\t\"input\": {\n\t    \"captainName\": \"Captain test\",\n\t\t\"vesselName\": \"The test ship\",\n\t\t\"arrivalDate\": 1614484666881,\n\t\t\"port\": \"The port test\"\n\t}\n}"
+          },
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000"
+        }
+      },
+      "response": []
+    }
+  ],
+  "protocolProfileBehavior": {}
+}
