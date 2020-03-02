@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsc --w",
+    "build:prod": "tsc",
     "start": "nodemon -r dotenv/config ./dist/index.js",
     "lint": "eslint --ext .ts ./src ./scripts ./seeds",
     "seeder:seed": "ts-node -r dotenv/config ./scripts/seeder.ts",
