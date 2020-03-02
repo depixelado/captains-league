@@ -79,7 +79,7 @@ describe("All", () => {
     });
 
     it("Should fail if the sort is non ASC or DESC", () => {
-      const validQuery = `
+      const invalidQuery = `
         {
           places: getLogsByCaptain(name: "The captain", sort: FOO){
             vesselName
@@ -89,11 +89,11 @@ describe("All", () => {
           }
         }
       `;
-      tester.test(false, validQuery);
+      tester.test(false, invalidQuery);
     });
 
     it("Should fail if the name is missing", () => {
-      const validQuery = `
+      const invalidQuery = `
         {
           places: getLogsByCaptain(sort: FOO){
             vesselName
@@ -103,7 +103,68 @@ describe("All", () => {
           }
         }
       `;
-      tester.test(false, validQuery);
+      tester.test(false, invalidQuery);
+    });
+  });
+
+  describe("createLog", () => {
+    it("Should pass if the query is valid", () => {
+      const validQuery = `
+        mutation addLog($input: LogInput!) {
+          createLog(log: $input) {
+            vesselName
+            captainName
+            port
+            arrivalDate
+          }
+        }
+      `;
+      tester.test(true, validQuery, {
+        input: {
+          captainName: "The captain",
+          vesselName: "The ship",
+          port: "The port",
+          arrivalDate: 1583162334416
+        }
+      });
+    });
+
+    it("Should fail if missing input params", () => {
+      const invalidQuery = `
+        mutation addLog($input: LogInput!) {
+          createLog(log: $input) {
+            vesselName
+            captainName
+            port
+            arrivalDate
+          }
+        }
+      `;
+      tester.test(false, invalidQuery, {
+        input: {
+          port: "The port",
+          arrivalDate: 1583162334416
+        }
+      });
+    });
+
+    it("Should fail if arrivalDate has a wrong type", () => {
+      const invalidQuery = `
+        mutation addLog($input: LogInput!) {
+          createLog(log: $input) {
+            vesselName
+            captainName
+            port
+            arrivalDate
+          }
+        }
+      `;
+      tester.test(false, invalidQuery, {
+        input: {
+          port: "The port",
+          arrivalDate: "1583162334416"
+        }
+      });
     });
   });
 });

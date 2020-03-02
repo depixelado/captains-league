@@ -12,6 +12,10 @@ export interface LogService {
     dependencies: { logger: typeof logger },
     sort: SORT
   ) => Promise<Log[]>;
+  createLog: (
+    dependencies: { logger: typeof logger },
+    log: Log
+  ) => Promise<Log>;
 }
 
 const Service: LogService = {
@@ -49,6 +53,21 @@ const Service: LogService = {
       logger.error(error, "findLogs: Impossible to retrieve logs");
 
       return [];
+    }
+  },
+
+  createLog: async ({ logger }, log) => {
+    logger.info("createLog: Creating log");
+    logger.trace(log);
+
+    try {
+      const result = LogModel.create(log);
+      logger.info("createLog: Log created");
+      logger.trace(result);
+
+      return log;
+    } catch (error) {
+      logger.error(error, "createLog: Impossible to create log");
     }
   }
 };
