@@ -57,3 +57,7 @@ npm run start
 ```
 
 After executing the command a log message will appear on the terminal showing the URL the application is being served to.
+
+## Documentation
+
+- [ARCHITECTURE](/docs/architecture.md)
