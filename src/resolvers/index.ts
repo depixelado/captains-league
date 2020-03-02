@@ -3,7 +3,7 @@ import { SORT, ContextInterface } from "../commonTypes";
 
 export const getLogsByCaptain = async (
   parent,
-  args: { name: string; sort: SORT } = { name: "", sort: SORT.DESC },
+  args: { name: string; sort?: SORT } = { name: "", sort: SORT.DESC },
   ctx: ContextInterface
 ): Promise<Log[]> => {
   ctx.logger.info("Resolver: logsByCaptain called.");
@@ -16,7 +16,7 @@ export const getLogsByCaptain = async (
 
 export const getLogs = async (
   parent,
-  args: { sort: SORT } = { sort: SORT.DESC },
+  args: { sort?: SORT } = { sort: SORT.DESC },
   ctx: ContextInterface
 ): Promise<Log[]> => {
   ctx.logger.info("Resolver: getLogs called.");
