@@ -12,11 +12,18 @@ describe("All", () => {
     it("Should pass if the query is valid", () => {
       const validQuery = `
         {
-          places: getLogs(sort: DESC){
-            vesselName
-            captainName
-            port
-            arrivalDate
+          places:getLogs(sort: DESC) {
+            edges {
+              node {
+                captainName
+                vesselName
+                port
+              }
+            }
+            pageInfo {
+              hasNextPage
+              endCursor
+            }
           }
         }
       `;
@@ -26,8 +33,18 @@ describe("All", () => {
     it("Should pass if the sort is ASC", () => {
       const validQuery = `
         {
-          places: getLogs(sort: ASC){
-            vesselName
+          places:getLogs(sort: ASC) {
+            edges {
+              node {
+                captainName
+                vesselName
+                port
+              }
+            }
+            pageInfo {
+              hasNextPage
+              endCursor
+            }
           }
         }
       `;
@@ -37,11 +54,18 @@ describe("All", () => {
     it("Should fail if the sort is non ASC or DESC", () => {
       const validQuery = `
         {
-          places: getLogs(sort: FOO){
-            vesselName
-            captainName
-            port
-            arrivalDate
+          places:getLogs(sort: FOO) {
+            edges {
+              node {
+                captainName
+                vesselName
+                port
+              }
+            }
+            pageInfo {
+              hasNextPage
+              endCursor
+            }
           }
         }
       `;
@@ -53,11 +77,18 @@ describe("All", () => {
     it("Should pass if the query is valid", () => {
       const validQuery = `
         {
-          places: getLogsByCaptain(name: "The captain", sort: DESC){
-            vesselName
-            captainName
-            port
-            arrivalDate
+          places:getLogsByCaptain(name: "The captain", sort: DESC) {
+            edges {
+              node {
+                captainName
+                vesselName
+                port
+              }
+            }
+            pageInfo {
+              hasNextPage
+              endCursor
+            }
           }
         }
       `;
@@ -67,11 +98,18 @@ describe("All", () => {
     it("Should pass if the sort is ASC", () => {
       const validQuery = `
         {
-          places: getLogsByCaptain(name: "The captain", sort: DESC){
-            vesselName
-            captainName
-            port
-            arrivalDate
+          places:getLogsByCaptain(name: "The captain", sort: ASC) {
+            edges {
+              node {
+                captainName
+                vesselName
+                port
+              }
+            }
+            pageInfo {
+              hasNextPage
+              endCursor
+            }
           }
         }
       `;
@@ -81,11 +119,18 @@ describe("All", () => {
     it("Should fail if the sort is non ASC or DESC", () => {
       const invalidQuery = `
         {
-          places: getLogsByCaptain(name: "The captain", sort: FOO){
-            vesselName
-            captainName
-            port
-            arrivalDate
+          places:getLogsByCaptain(name: "The captain", sort: FOO) {
+            edges {
+              node {
+                captainName
+                vesselName
+                port
+              }
+            }
+            pageInfo {
+              hasNextPage
+              endCursor
+            }
           }
         }
       `;
@@ -95,11 +140,18 @@ describe("All", () => {
     it("Should fail if the name is missing", () => {
       const invalidQuery = `
         {
-          places: getLogsByCaptain(sort: FOO){
-            vesselName
-            captainName
-            port
-            arrivalDate
+          places:getLogsByCaptain(sort: DESC) {
+            edges {
+              node {
+                captainName
+                vesselName
+                port
+              }
+            }
+            pageInfo {
+              hasNextPage
+              endCursor
+            }
           }
         }
       `;

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsc --w",
-    "build:prod": "tsc",
+    "build": "tsc",
     "start": "nodemon -r dotenv/config ./dist/index.js",
     "lint": "eslint --ext .ts ./src ./scripts ./seeds",
     "seeder:seed": "ts-node -r dotenv/config ./scripts/seeder.ts",
@@ -24,6 +24,8 @@
   },
   "homepage": "https://github.com/depixelado/captains-league#readme",
   "dependencies": {
+    "@limit0/graphql-custom-types": "^1.0.1",
+    "@limit0/mongoose-graphql-pagination": "^1.1.4",
     "@typegoose/typegoose": "^6.4.0",
     "apollo-server": "^2.10.1",
     "graphql": "^14.6.0",

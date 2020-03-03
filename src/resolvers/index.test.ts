@@ -1,9 +1,9 @@
-import { getContext } from "../tests/utils/getContext";
+import { getContext, getConnectionWrapper } from "../tests/utils/utils";
 import { getLogsByCaptain, getLogs, createLog } from "./index";
 
 describe("getLogsByCaptain", () => {
   it("should return logs", async () => {
-    const expected = [
+    const expected = getConnectionWrapper([
       {
         vesselName: "The ship",
         captainName: "The captain",
@@ -16,7 +16,7 @@ describe("getLogsByCaptain", () => {
         port: "The port",
         arrivalDate: new Date("2020-03-02T15:39:08.563+0000")
       }
-    ];
+    ]);
     const context = getContext("Logs", "findLogsByCaptain", expected);
     const result = await getLogsByCaptain({}, { name: "Captain" }, context);
 
@@ -26,14 +26,14 @@ describe("getLogsByCaptain", () => {
 
 describe("getLogs", () => {
   it("should return logs", async () => {
-    const expected = [
+    const expected = getConnectionWrapper([
       {
         vesselName: "The ship",
         captainName: "The captain",
         port: "The port",
         arrivalDate: new Date("2020-03-02T15:39:08.563+0000")
       }
-    ];
+    ]);
     const context = getContext("Logs", "findLogs", expected);
     const result = await getLogs({}, {}, context);
 

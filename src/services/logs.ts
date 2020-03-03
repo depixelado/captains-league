@@ -1,17 +1,29 @@
 import LogModel, { Log } from "../models/Log";
 import logger from "../logger";
-import { SORT } from "../commonTypes";
+import { SORT, PaginationInterface, Connection } from "../commonTypes";
+import { Pagination } from "@limit0/mongoose-graphql-pagination";
 
+const getConnectionStructure = <T>(paginated): Connection<T> => {
+  return {
+    edges: paginated.getEdges(),
+    pageInfo: {
+      hasNextPage: paginated.hasNextPage(),
+      endCursor: paginated.getEndCursor()
+    }
+  };
+};
 export interface LogService {
   findLogsByCaptain: (
     dependencies: { logger: typeof logger },
     name: string,
+    pagination: PaginationInterface,
     sort: SORT
-  ) => Promise<Log[]>;
+  ) => Promise<Connection<Log[]>> | {};
   findLogs: (
     dependencies: { logger: typeof logger },
+    pagination: PaginationInterface,
     sort: SORT
-  ) => Promise<Log[]>;
+  ) => Promise<Connection<Log[]>> | {};
   createLog: (
     dependencies: { logger: typeof logger },
     log: Log
@@ -19,40 +31,49 @@ export interface LogService {
 }
 
 const Service: LogService = {
-  findLogsByCaptain: async ({ logger }, name, sort = SORT.DESC) => {
-    logger.info(
-      `findLogsByCaptain: Fetching logs by captain name. Name: ${name}`
-    );
+  findLogsByCaptain: async ({ logger }, name, pagination, sort = SORT.DESC) => {
+    logger.info("findLogsByCaptain: Fetching logs by captain name");
     try {
-      const logs = await LogModel.find({ captainName: name }).sort({
-        arrivalDate: SORT[sort]
+      const paginated = new Pagination(LogModel, {
+        criteria: {
+          captainName: name
+        },
+        pagination,
+        sort: {
+          arrivalDate: SORT[sort]
+        }
       });
-      logger.trace(logs);
+      const result = getConnectionStructure(paginated);
+      logger.trace(result);
 
-      return logs;
+      return result;
     } catch (error) {
       logger.error(
         error,
         "findLogsByCaptain: Impossible to retrieve logs by captain name"
       );
 
-      return [];
+      return {};
     }
   },
 
-  findLogs: async ({ logger }, sort = SORT.DESC) => {
-    logger.info(`findLogs: Fetching logs by captain name. Sort: ${sort}`);
+  findLogs: async ({ logger }, pagination, sort = SORT.DESC) => {
+    logger.info("findLogs: Fetching logs");
     try {
-      const logs = await LogModel.find().sort({
-        arrivalDate: SORT[sort]
+      const paginated = new Pagination(LogModel, {
+        pagination,
+        sort: {
+          arrivalDate: SORT[sort]
+        }
       });
-      logger.trace(logs);
+      const result = getConnectionStructure(paginated);
+      logger.trace(result);
 
-      return logs;
+      return result;
     } catch (error) {
       logger.error(error, "findLogs: Impossible to retrieve logs");
 
-      return [];
+      return {};
     }
   },
 

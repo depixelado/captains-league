@@ -1,32 +1,44 @@
-import { GraphQLScalarType } from "graphql";
-import { Kind } from "graphql/language";
+import { CursorType, DateType } from "@limit0/graphql-custom-types";
 import { Log } from "../models/Log";
-import { SORT, ContextInterface } from "../commonTypes";
+import {
+  SORT,
+  ContextInterface,
+  PaginationInterface,
+  Connection
+} from "../commonTypes";
 
 export const getLogsByCaptain = async (
   parent,
-  args: { name: string; sort?: SORT } = { name: "", sort: SORT.DESC },
+  args: { name: string; pagination?: PaginationInterface; sort?: SORT } = {
+    name: "",
+    sort: SORT.DESC
+  },
   ctx: ContextInterface
-): Promise<Log[]> => {
+): Promise<Connection<Log[]> | {}> => {
   ctx.logger.info("Resolver: logsByCaptain called.");
   ctx.logger.trace(args);
 
   return await ctx.injector
     .get("Logs")
-    .findLogsByCaptain({ logger: ctx.logger }, args.name, args.sort);
+    .findLogsByCaptain(
+      { logger: ctx.logger },
+      args.name,
+      args.pagination,
+      args.sort
+    );
 };
 
 export const getLogs = async (
   parent,
-  args: { sort?: SORT } = { sort: SORT.DESC },
+  args: { pagination?: PaginationInterface; sort?: SORT } = { sort: SORT.DESC },
   ctx: ContextInterface
-): Promise<Log[]> => {
+): Promise<Connection<Log[]> | {}> => {
   ctx.logger.info("Resolver: getLogs called.");
   ctx.logger.trace(args);
 
   return await ctx.injector
     .get("Logs")
-    .findLogs({ logger: ctx.logger }, args.sort);
+    .findLogs({ logger: ctx.logger }, args.pagination, args.sort);
 };
 
 export const createLog = async (
@@ -42,25 +54,9 @@ export const createLog = async (
     .createLog({ logger: ctx.logger }, args.log);
 };
 
-const DateScalar = new GraphQLScalarType({
-  name: "Date",
-  description: "Date type",
-  serialize(value): number {
-    return value.getTime();
-  },
-  parseValue(value): Date {
-    return new Date(value);
-  },
-  parseLiteral(ast): Date {
-    if (ast.kind === Kind.INT) {
-      return new Date(ast.value);
-    }
-    return null;
-  }
-});
-
 const resolvers = {
-  Date: DateScalar,
+  Date: DateType,
+  Cursor: CursorType,
   Query: {
     getLogsByCaptain,
     getLogs

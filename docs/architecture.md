@@ -22,4 +22,4 @@ The current system requires ingesting a potentially big amount of logs more than
 
 ### Retrieving big amounts of data
 
-Retrieving logs from all places/captains. It can produce a big amount of data to retrieve. For that reason, It would be necessary to paginate responses so the size of it can be controlled.
+Retrieving logs from all places/captains can result in a big amount of data. For that reason, It would be necessary to paginate responses so the size of it can be controlled. The approach taken on this project is `cursor-based pagination` as explained on [GraphQL pagination documentation](https://graphql.org/learn/pagination/)

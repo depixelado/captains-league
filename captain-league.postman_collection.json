@@ -21,7 +21,7 @@
         "body": {
           "mode": "graphql",
           "graphql": {
-            "query": "{\n  places: getLogs(sort: DESC) {\n    captainName\n    vesselName\n    port\n  }\n}",
+            "query": "{\n  places:getLogs(sort: DESC) {\n    edges {\n      node {\n        captainName\n        vesselName\n        port\n        arrivalDate\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n",
             "variables": ""
           },
           "options": {
@@ -54,7 +54,7 @@
         "body": {
           "mode": "graphql",
           "graphql": {
-            "query": "{\n  places: getLogsByCaptain(name: \"Captain naame\"){\n    vesselName\n    arrivalDate\n  }\n}",
+            "query": "{\n  places: getLogsByCaptain(pagination:{first: 10}, name:\"Devon Doyle\", sort: DESC) {\n    edges {\n      node {\n        vesselName\n        port\n        arrivalDate\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n",
             "variables": ""
           },
           "options": {

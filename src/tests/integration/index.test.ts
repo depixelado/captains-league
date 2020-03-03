@@ -2,51 +2,52 @@ import { graphql } from "graphql";
 import typeDefs from "../../schema";
 import resolvers from "../../resolvers";
 import { makeExecutableSchema } from "graphql-tools";
-import { getContext } from "../utils/getContext";
+import { getContext, getConnectionWrapper } from "../utils/utils";
 
 describe("getLogs", () => {
   it("should return logs from all places and captains", async () => {
     const logDate = new Date("2020-03-02T15:39:08.563+0000");
-
-    const dataFromDb = [
+    const log = {
+      vesselName: "The ship",
+      captainName: "The captain",
+      port: "The port",
+      arrivalDate: logDate
+    };
+    const dataFromService = getConnectionWrapper([log]);
+    const expected = getConnectionWrapper(
+      [
+        {
+          ...log,
+          arrivalDate: logDate.getTime()
+        }
+      ],
       {
-        vesselName: "The ship",
-        captainName: "The captain",
-        port: "The port",
-        arrivalDate: logDate
-      },
-      {
-        vesselName: "The ship",
-        captainName: "The captain",
-        port: "The port",
-        arrivalDate: logDate
+        endCursor: null,
+        hasNextPage: false
       }
-    ];
-
-    const expected = [
-      {
-        ...dataFromDb[0],
-        arrivalDate: logDate.getTime()
-      },
-      {
-        ...dataFromDb[1],
-        arrivalDate: logDate.getTime()
-      }
-    ];
+    );
 
     const query = `
       query {
-        places: getLogs(sort: DESC){
-          vesselName
-          captainName
-          port
-          arrivalDate
+        places: getLogs(sort: DESC) {
+          edges {
+            node {
+              captainName
+              vesselName
+              port
+              arrivalDate
+            }
+          }
+          pageInfo {
+            hasNextPage
+            endCursor
+          }
         }
       }
     `;
 
     const rootValue = {};
-    const context = getContext("Logs", "findLogs", dataFromDb);
+    const context = getContext("Logs", "findLogs", dataFromService);
     const schema = makeExecutableSchema({ typeDefs, resolvers });
 
     const result = await graphql(schema, query, rootValue, context);
@@ -59,46 +60,47 @@ describe("getLogs", () => {
 describe("getLogsByCaptain", () => {
   it("should return logs by captain", async () => {
     const logDate = new Date("2020-03-02T15:39:08.563+0000");
-
-    const dataFromDb = [
+    const log = {
+      vesselName: "The ship",
+      captainName: "The captain",
+      port: "The port",
+      arrivalDate: logDate
+    };
+    const dataFromService = getConnectionWrapper([log]);
+    const expected = getConnectionWrapper(
+      [
+        {
+          ...log,
+          arrivalDate: logDate.getTime()
+        }
+      ],
       {
-        vesselName: "The ship",
-        captainName: "The captain",
-        port: "The port",
-        arrivalDate: logDate
-      },
-      {
-        vesselName: "The ship",
-        captainName: "The captain",
-        port: "The port",
-        arrivalDate: logDate
+        endCursor: null,
+        hasNextPage: false
       }
-    ];
-
-    const expected = [
-      {
-        ...dataFromDb[0],
-        arrivalDate: logDate.getTime()
-      },
-      {
-        ...dataFromDb[1],
-        arrivalDate: logDate.getTime()
-      }
-    ];
+    );
 
     const query = `
       query {
         places: getLogsByCaptain(name: "The captain", sort: DESC){
-          vesselName
-          captainName
-          port
-          arrivalDate
+          edges {
+            node {
+              captainName
+              vesselName
+              port
+              arrivalDate
+            }
+          }
+          pageInfo {
+            hasNextPage
+            endCursor
+          }
         }
       }
     `;
 
     const rootValue = {};
-    const context = getContext("Logs", "findLogsByCaptain", dataFromDb);
+    const context = getContext("Logs", "findLogsByCaptain", dataFromService);
     const schema = makeExecutableSchema({ typeDefs, resolvers });
 
     const result = await graphql(schema, query, rootValue, context);

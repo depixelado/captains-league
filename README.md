@@ -60,4 +60,6 @@ After executing the command a log message will appear on the terminal showing th
 
 ## Documentation
 
-- [ARCHITECTURE](/docs/architecture.md)
+For mor information click on the links below:
+
+- [Architecture](/docs/architecture.md)
