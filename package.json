@@ -27,7 +27,7 @@
     "@limit0/graphql-custom-types": "^1.0.1",
     "@limit0/mongoose-graphql-pagination": "^1.1.4",
     "@typegoose/typegoose": "^6.4.0",
-    "apollo-server": "^2.10.1",
+    "apollo-server": "^2.14.2",
     "graphql": "^14.6.0",
     "mongoose": "^5.9.2",
     "nodemon": "^2.0.2",
